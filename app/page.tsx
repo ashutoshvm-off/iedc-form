@@ -17,6 +17,7 @@ interface FormData {
   name: string
   department: string
   section: string
+  semester: string
   phoneNumber: string
   email: string
   position: string
@@ -27,9 +28,19 @@ interface FormData {
   whichSociety?: string
 }
 
-const departments = ["CSE", "AI&DS", "EEE", "ECE", "EBE", "CE", "ME"]
+const departments = ["CSE", "AI", "DS", "EEE", "ECE", "EBE", "CE", "ME"]
 
-const sections = ["A", "B", "C"]
+// const sections = ["A", "B", "C"]
+
+const semesters = [
+  "S2",
+  "S3",
+  "S4",
+  "S5",
+  "S6",
+  "S7",
+  "S8",
+]
 
 const positions = [
   "IEDC Lead",
@@ -49,6 +60,7 @@ export default function IEDCExecomForm() {
     name: "",
     department: "",
     section: "",
+    semester: "",
     phoneNumber: "",
     email: "",
     position: "",
@@ -74,7 +86,7 @@ export default function IEDCExecomForm() {
     }
 
     if (!formData.section) {
-      newErrors.section = "Section is required"
+      newErrors.section = "Semester is required"
     }
 
     if (!formData.phoneNumber) {
@@ -257,7 +269,7 @@ export default function IEDCExecomForm() {
               style={{ backgroundImage: `url(${backgroundImage})` }}
             />
           ) : (
-            <Image src="/images/iedc-background.png" alt="IEDC Background" fill className="object-cover" priority />
+            <Image src="/images/iedc.png" alt="IEDC Background" fill className="object-cover" priority />
           )}
           <div className="absolute inset-0 bg-black bg-opacity-40" />
         </div>
@@ -314,7 +326,7 @@ export default function IEDCExecomForm() {
         ) : (
           <Image src="/images/iedc.png" alt="IEDC Background" fill className="object-cover" priority />
         )}
-        <div className="absolute inset-0 bg-black bg-opacity-30" />
+        <div className="absolute inset-0 bg-black bg-opacity-40" />
       </div>
 
       {/* Content */}
@@ -366,15 +378,15 @@ export default function IEDCExecomForm() {
 
                 {/* Section */}
                 <div className="space-y-2">
-                  <Label htmlFor="section">Section *</Label>
+                  <Label htmlFor="section">Semester *</Label>
                   <Select value={formData.section} onValueChange={(value) => handleInputChange("section", value)}>
                     <SelectTrigger className={errors.section ? "border-red-500" : ""}>
-                      <SelectValue placeholder="Select your section" />
+                      <SelectValue placeholder="Select your semester" />
                     </SelectTrigger>
                     <SelectContent>
-                      {sections.map((section) => (
-                        <SelectItem key={section} value={section}>
-                          {section}
+                      {semesters.map((semester) => (
+                        <SelectItem key={semester} value={semester}>
+                          {semester}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -457,7 +469,7 @@ export default function IEDCExecomForm() {
                       id="whichSociety"
                       value={formData.whichSociety || ""}
                       onChange={(e) => handleInputChange("whichSociety", e.target.value)}
-                      placeholder="Enter the name of the society"
+                      placeholder="Enter the name of the society (name all with a , if in multiple)"
                       className={errors.whichSociety ? "border-red-500" : ""}
                     />
                     {errors.whichSociety && <p className="text-sm text-red-500">{errors.whichSociety}</p>}
